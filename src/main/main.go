@@ -5,12 +5,16 @@ import (
 	"net/http"
 )
 
-// Default Request Handler
-func defaultHandler(w http.ResponseWriter, r *http.Request) {
+func main() {
+	http.HandleFunc("/", index)
+	http.HandleFunc("/test", test)
+	http.ListenAndServe(":8080", nil)
+}
+
+func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "<h1>Hello %s!</h1>", r.URL.Path[1:])
 }
 
-func main() {
-	http.HandleFunc("/", defaultHandler)
-	http.ListenAndServe(":8080", nil)
+func test(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("test!!!")
 }
